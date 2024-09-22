@@ -6,11 +6,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase.js";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMesssage, setErrorMesssage] = useState(null);
+  const navigate = useNavigate();
 
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
@@ -29,7 +32,17 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          updateProfile(user, {
+            displayName: name.current.value, photoURL: "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=2048x2048&w=is&k=20&c=6hQNACQQjktni8CxSS_QSPqJv2tycskYmpFGzxv3FNs="
+          }).then(() => {
+            // Profile updated!
+            navigate("/browse")
+            
+          }).catch((error) => {
+            // An error occurred
+            setErrorMesssage(error.message);
+          });
+          
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -46,6 +59,8 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          navigate("/browse")
+
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -78,6 +93,7 @@ const Login = () => {
         {!isSignInForm && (
           <div className="relative min-w-50 z-0 w-full group my-4 ">
             <input
+            ref={name}
               type="text"
               id="full name"
               placeholder=""
