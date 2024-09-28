@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice.js";
 import search_icon from "../assets/search_icon.svg";
@@ -34,7 +34,7 @@ const Header = () => {
             photoURL: photoURL,
           })
         );
-        navigate("/browse");
+        navigate("/browse/home");
       } else {
         dispatch(removeUser());
         navigate("/");
@@ -52,11 +52,11 @@ const Header = () => {
           alr="logo"
         />
         <ul className="flex gap-5  cursor-pointer">
-          <li>Home</li>
-          <li>TV Shows</li>
-          <li>Movies</li>
-          <li>New & Popular</li>
-          <li>My List</li>
+          <Link to="/browse/home"><li>Home</li></Link>
+          <Link to="/browse/tvshows"><li>TV Shows</li></Link>
+          <Link to=""><li>Movies</li></Link>
+          <Link to=""><li>New & Popular</li></Link>
+          <Link to=""><li>My List</li></Link>
         </ul>
       </div>
       <div className="flex-row items-center gap-5 inline-flex">
