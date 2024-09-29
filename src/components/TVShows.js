@@ -1,26 +1,30 @@
 import React from "react";
 import useAringTodayTVSeries from "../hooks/useAiringTodayTVSeries";
 import { useSelector } from "react-redux";
-import MainContainer from "./MainContainer";
-import VideoBackground from "./VideoBackground";
+import MovieList from "./MovieList";
+import useOnTheAirTVSeries from "../hooks/useOnTheAirTVSeries";
+import usePopular from "../hooks/usePopularTVSeries";
+import useTopRatedTVSeries from "../hooks/useTopRatedTVSeries";
 
 
 const TVShows = () => {
   useAringTodayTVSeries();
-  const tvSeries = useSelector((store) => store.tvSeries?.airing_today);
+  useOnTheAirTVSeries();
+  usePopular();
+  useTopRatedTVSeries();
+
+  const tvSeries = useSelector((store) => store.tvSeries);
   if(!tvSeries) return;
-
-
-  const maintvSeries = tvSeries[5];
-
-  const { name, overview } = maintvSeries;
-
+  
   return (
-    <div>
-      <>
-      tv shows
-      </>
-    </div>
+    <div className="bg-black">
+        <div className=" pt-[100px] relative ">
+          <MovieList title={"Airig Today"} movies={tvSeries.airing_today} />
+          <MovieList title={"On The Air"} movies={tvSeries.on_the_air} />
+          <MovieList title={"Popular"} movies={tvSeries.popular} />
+          <MovieList title={"Top Rated"} movies={tvSeries.top_rated} />
+        </div>
+      </div>
   );
 };
 
