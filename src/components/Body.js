@@ -3,6 +3,7 @@ import Login from "./Login";
 import Browse from "./Browse";
 import TVShows from "./TVShows";
 import Home from "./Home";
+import GptSearch from "./GptSearch";
 
 const Body = () => {
   const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const Body = () => {
           path: "tvshows",
           element: <TVShows />,
         },
+        {
+          path: "gptsearch",
+          element: <GptSearch/>
+        }
       ]
     },
     

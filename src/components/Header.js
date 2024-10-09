@@ -22,6 +22,8 @@ const Header = () => {
       });
   };
 
+  const handleSearch = () => navigate("/browse/gptsearch")
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -60,7 +62,7 @@ const Header = () => {
         </ul>
       </div>
       <div className="flex-row items-center gap-5 inline-flex">
-        <img alt="search" src={search_icon} />
+        <img  onClick={handleSearch} alt="search" src={search_icon} />
         <p>Kids</p>
         <img alt="search" src={bell_icon} />
         {user && (
